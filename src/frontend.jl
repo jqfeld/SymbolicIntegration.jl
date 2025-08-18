@@ -731,7 +731,7 @@ function TowerOfDifferentialFields(terms::Vector{Term})  where
 end
 
 
-Symbolics.@syms ∫(f, x)
+@variables ∫(.., ..)
 
 # Main integration interface for Symbolics.jl
 function integrate(f::Symbolics.Num, x::Symbolics.Num; kwargs...)
