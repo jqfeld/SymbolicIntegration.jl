@@ -1,6 +1,6 @@
 using Test
 using SymbolicIntegration
-using SymbolicUtils
+using Symbolics
 using AbstractAlgebra
 using Nemo
 
@@ -24,7 +24,7 @@ using Nemo
     end
     
     @testset "Complex Integration Examples" begin
-        @syms x
+        @variables x
         
         # Test functions that would use complex field operations
         # These may not give exact expected results due to API changes,
@@ -38,7 +38,7 @@ using Nemo
     end
     
     @testset "Complex Root Handling" begin
-        @syms x
+        @variables x
         
         # Test cases that specifically involve complex roots
         # BROKEN: All due to complex root conversion API changes

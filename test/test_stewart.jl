@@ -2,7 +2,7 @@ using SymbolicIntegration, SymbolicUtils
 using Symbolics # fopr derivative
 SI = SymbolicIntegration
 
-@syms x t y Pi p q r 
+@variables x t y Pi p q r 
 n =7
 a = 2//3
 b = -1//5

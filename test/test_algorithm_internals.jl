@@ -1,6 +1,6 @@
 using Test
 using SymbolicIntegration
-using SymbolicUtils
+using Symbolics
 using AbstractAlgebra
 using Nemo
 
@@ -50,7 +50,7 @@ using Nemo
     @testset "Utility Functions" begin
         # Test utility functions that should work reliably
         
-        @syms x
+        @variables x
         
         # Test isrational function
         @test SymbolicIntegration.isrational(3)
@@ -66,7 +66,7 @@ using Nemo
     @testset "Integration Framework" begin
         # Test that the integration framework components work
         
-        @syms x
+        @variables x
         
         # Test that we can analyze simple expressions
         try

@@ -1,9 +1,9 @@
 using Test
 using SymbolicIntegration
-using SymbolicUtils
+using Symbolics
 
 @testset "Rational Function Integration" begin
-    @syms x
+    @variables x
     
     # Integration Test Problems from 
     # https://rulebasedintegration.org/testProblems.html

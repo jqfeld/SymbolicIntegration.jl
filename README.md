@@ -1,7 +1,7 @@
 # SymbolicIntegration.jl
 This package provides Julia implementations of symbolic integration algorithms.
 
-The front-end (i.e., the user interface) requires [SymbolicUtils.jl](https://symbolicutils.juliasymbolics.org/).
+The front-end (i.e., the user interface) requires [Symbolics.jl](https://docs.sciml.ai/Symbolics/stable/).
 The actual integration algorithms are implemented in a generic way using [AbstractAlgebra.jl](https://nemocas.github.io/AbstractAlgebra.jl/dev/).
 Some algorithms require [Nemo.jl](https://nemocas.github.io/Nemo.jl/dev/) for calculations with algebraic numbers.
 
@@ -26,12 +26,12 @@ julia> using Pkg; Pkg.add("SymbolicIntegration")
 
 ## Usage
 ```julia
-julia> using SymbolicIntegration, SymbolicUtils
+julia> using SymbolicIntegration, Symbolics
 
-julia> @syms x
+julia> @variables x
 (x,)
 
-julia> f = (x^3 + x^2 + x + 2)//(x^4 + 3*x^2 + 2)
+julia> f = (x^3 + x^2 + x + 2)/(x^4 + 3*x^2 + 2)
 (2 + x + x^2 + x^3) / (2 + x^4 + 3(x^2))
 
 julia> integrate(f, x)
@@ -43,11 +43,8 @@ julia> f = 1/(x*log(x))
 julia> integrate(f, x)
 log(log(x))
 
-julia> f = 1/(1+2*cos(x))
-1 / (1 + 2cos(x))
-
-julia> g = integrate(f, x)
-log(-4 - sqrt(16//3)*tan((1//2)*x))*sqrt(1//3) - log(sqrt(16//3)*tan((1//2)*x) - 4)*sqrt(1//3)
+julia> integrate(1/(x^2 + 1), x)  # Complex root integration
+atan(x)
 ```
 
 ## Tests

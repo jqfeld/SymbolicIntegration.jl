@@ -1,5 +1,5 @@
 using SymbolicIntegration, SymbolicUtils
-@syms x
+@variables x
 
 #Integration Test Problems from 
 #https://rulebasedintegration.org/testProblems.html

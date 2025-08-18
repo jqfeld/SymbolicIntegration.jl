@@ -1,6 +1,6 @@
 using Test
 using SymbolicIntegration
-using SymbolicUtils
+using Symbolics
 using AbstractAlgebra
 using Nemo
 
@@ -9,7 +9,7 @@ using Nemo
     # These test the core algorithms implemented in the package
     
     @testset "Chapter 2: Rational Function Integration" begin
-        @syms x
+        @variables x
         
         # Example 2.5.1: Basic rational function
         # This tests the Rothstein-Trager algorithm
@@ -31,7 +31,7 @@ using Nemo
     end
     
     @testset "Chapter 5: Transcendental Functions" begin
-        @syms x
+        @variables x
         
         # Example 5.8.1: Primitive case
         # ∫ exp(x^2) * x dx = (1/2) * exp(x^2)

@@ -2,12 +2,12 @@
 
 ## Creating Symbolic Variables
 
-Before integrating, you need to create symbolic variables using SymbolicUtils.jl:
+Before integrating, you need to create symbolic variables using Symbolics.jl:
 
 ```julia
-using SymbolicIntegration, SymbolicUtils
+using SymbolicIntegration, Symbolics
 
-@syms x y z
+@variables x y z
 ```
 
 ## The `integrate` Function
@@ -62,6 +62,9 @@ integrate(tan(x), x)   # -log(cos(x))
 SymbolicIntegration.jl will throw appropriate errors for unsupported cases:
 
 ```julia
+using SymbolicIntegration, Symbolics
+@variables x
+
 # This will throw NotImplementedError for algebraic functions
 integrate(sqrt(x), x)  # Error: algebraic functions not supported
 

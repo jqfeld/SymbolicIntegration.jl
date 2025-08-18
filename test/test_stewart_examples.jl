@@ -1,12 +1,12 @@
 using Test
 using SymbolicIntegration
-using SymbolicUtils
+using Symbolics
 
 @testset "Stewart Calculus Examples" begin
     # Selected examples from James Stewart - Calculus (1987)
     # Integration Test Problems from https://rulebasedintegration.org/testProblems.html
     
-    @syms x
+    @variables x
     
     @testset "Basic Integration Formulas" begin
         # Section 7.1 - Basic integration formulas that should work reliably

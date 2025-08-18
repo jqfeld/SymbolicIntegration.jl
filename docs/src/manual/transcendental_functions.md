@@ -7,8 +7,8 @@ SymbolicIntegration.jl implements the Risch algorithm for integrating elementary
 ### Exponential Functions
 
 ```julia
-using SymbolicIntegration, SymbolicUtils
-@syms x
+using SymbolicIntegration, Symbolics
+@variables x
 
 integrate(exp(x), x)        # exp(x)
 integrate(exp(2*x), x)      # (1//2)*exp(2*x)
