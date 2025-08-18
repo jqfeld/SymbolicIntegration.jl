@@ -62,6 +62,9 @@ integrate(tan(x), x)   # -log(cos(x))
 SymbolicIntegration.jl will throw appropriate errors for unsupported cases:
 
 ```julia
+using SymbolicIntegration, Symbolics
+@variables x
+
 # This will throw NotImplementedError for algebraic functions
 integrate(sqrt(x), x)  # Error: algebraic functions not supported
 

@@ -20,8 +20,8 @@ The integration algorithm consists of three main steps:
 ### Simple Rational Functions
 
 ```julia
-using SymbolicIntegration, SymbolicUtils
-@syms x
+using SymbolicIntegration, Symbolics
+@variables x
 
 # Linear over linear  
 integrate((2*x + 3)/(x + 1), x)  # 2*x + log(1 + x)
