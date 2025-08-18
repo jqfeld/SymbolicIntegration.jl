@@ -61,9 +61,10 @@ using SymbolicUtils
         
         # Test case 8: (-1+x+x^3)/(1+x^2)^2
         # Expected: -1/2*x/(1+x^2)-1/2*atan(x)+1/2*log(1+x^2)
-        # BROKEN: Complex root conversion API issue
+        # FIXED: Complex root handling now works!
         f8 = (-1+x+x^3)//(1+x^2)^2
-        @test_broken integrate(f8, x) isa Any
+        result8 = integrate(f8, x)
+        @test !isnothing(result8)
     end
     
     @testset "Advanced Rational Functions" begin
