@@ -6,7 +6,7 @@ CurrentModule = SymbolicIntegration
 
 SymbolicIntegration.jl provides Julia implementations of symbolic integration algorithms.
 
-The front-end (i.e., the user interface) supports both [Symbolics.jl](https://docs.sciml.ai/Symbolics/stable/) and [SymbolicUtils.jl](https://symbolicutils.juliasymbolics.org/).
+The front-end (i.e., the user interface) uses [Symbolics.jl](https://docs.sciml.ai/Symbolics/stable/).
 The actual integration algorithms are implemented in a generic way using [AbstractAlgebra.jl](https://nemocas.github.io/AbstractAlgebra.jl/dev/).
 Some algorithms require [Nemo.jl](https://nemocas.github.io/Nemo.jl/dev/) for calculations with algebraic numbers.
 
@@ -60,12 +60,6 @@ f = 1/(x*log(x))
 integrate(f, x)  # Returns log(log(x))
 ```
 
-You can also use SymbolicUtils.jl directly:
-```julia
-using SymbolicIntegration, SymbolicUtils
-@syms x
-integrate(x^2, x)  # Same functionality
-```
 
 ## Algorithm Coverage
 
