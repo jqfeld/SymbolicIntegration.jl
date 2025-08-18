@@ -71,9 +71,9 @@ using SymbolicUtils
         
         # Test case 10: (15-5*x+x^2+x^3)/((5+x^2)*(3+2*x+x^2))
         # Expected: 1/2*log(3+2*x+x^2)+5*atan((1+x)/sqrt(2))/sqrt(2)-atan(x/sqrt(5))*sqrt(5)
-        # BROKEN: Complex root conversion API issue
+        # This one actually works!
         f10 = (15-5*x+x^2+x^3)//((5+x^2)*(3+2*x+x^2))
-        @test_broken integrate(f10, x) isa Any
+        @test integrate(f10, x) isa Any
     end
     
     @testset "Specific Result Verification" begin

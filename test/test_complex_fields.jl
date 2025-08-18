@@ -30,9 +30,9 @@ using Nemo
         # These may not give exact expected results due to API changes,
         # but should not crash
         
-        # BROKEN: These cases involve complex root conversion issues
+        # Complex root cases - some work, some don't
         @test_broken integrate(1//(x^2 + 1), x) isa Any    # Should give atan(x)
-        @test_broken integrate(x//(x^2 + 1), x) isa Any    # Should give (1/2)*log(x^2 + 1)  
+        @test integrate(x//(x^2 + 1), x) isa Any           # This one works! 
         @test_broken integrate((x^2 + 1)//(x^4 + 1), x) isa Any  # Higher degree complex case
     end
     

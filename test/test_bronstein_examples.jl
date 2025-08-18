@@ -24,9 +24,9 @@ using Nemo
         @test_broken integrate(f2, x) isa Any
         
         # Example showing logarithmic parts
-        # BROKEN: May involve complex root issues
+        # This one actually works!
         f3 = (2*x + 1)//(x^2 + x + 1) 
-        @test_broken integrate(f3, x) isa Any
+        @test integrate(f3, x) isa Any
     end
     
     @testset "Chapter 5: Transcendental Functions" begin
@@ -58,7 +58,7 @@ using Nemo
             # Test basic polynomial ring operations work
             QQx, x = polynomial_ring(Nemo.QQ, :x)
             @test degree(x^2 + 1) == 2
-            @test coefficient(x^2 + 3*x + 1, 1) == 3
+            @test coeff(x^2 + 3*x + 1, 1) == 3
         end
         
         @testset "Fraction Field Operations" begin  
