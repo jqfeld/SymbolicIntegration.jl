@@ -94,7 +94,7 @@ to_symb(t::QQFieldElem) = to_symb(Rational(t))
 
 function to_symb(t::QQBarFieldElem)
     if degree(t)==1 
-        return to_symb(QQ(t))
+        return to_symb(Rational{BigInt}(t))
     end
     kx, _ = polynomial_ring(Nemo.QQ, :x)
     f = minpoly(kx, t)
@@ -102,15 +102,15 @@ function to_symb(t::QQBarFieldElem)
         y = to_symb(-coeff(f,0)//coeff(f, 2))
         if y>=0
             if t==maximum(conjugates(t))
-                return SymbolicUtils.Term(sqrt,y)
+                return sqrt(y)
             else
-                return -SymbolicUtils.Term(sqrt,y)
+                return -sqrt(y)
             end
         else
             if imag(t)==maximum(imag.(conjugates(t)))
-                return SymbolicUtils.Term(sqrt,-y)*1im
+                return sqrt(-y)*1im
             else
-                return -SymbolicUtils.Term(sqrt,-y)*1im
+                return -sqrt(-y)*1im
             end
         end
     elseif degree(f)==2 # coeff(f,1)!=0
