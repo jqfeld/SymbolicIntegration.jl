@@ -6,7 +6,7 @@ CurrentModule = SymbolicIntegration
 
 SymbolicIntegration.jl provides Julia implementations of symbolic integration algorithms.
 
-The front-end (i.e., the user interface) requires [SymbolicUtils.jl](https://symbolicutils.juliasymbolics.org/).
+The front-end (i.e., the user interface) supports both [Symbolics.jl](https://docs.sciml.ai/Symbolics/stable/) and [SymbolicUtils.jl](https://symbolicutils.juliasymbolics.org/).
 The actual integration algorithms are implemented in a generic way using [AbstractAlgebra.jl](https://nemocas.github.io/AbstractAlgebra.jl/dev/).
 Some algorithms require [Nemo.jl](https://nemocas.github.io/Nemo.jl/dev/) for calculations with algebraic numbers.
 
@@ -35,15 +35,16 @@ julia> using Pkg; Pkg.add("SymbolicIntegration")
 ## Quick Start
 
 ```julia
-using SymbolicIntegration, SymbolicUtils
+# Using Symbolics.jl (recommended)
+using SymbolicIntegration, Symbolics
 
-@syms x
+@variables x
 
 # Basic polynomial integration
 integrate(x^2, x)  # Returns (1//3)*(x^3)
 
 # Rational function integration  
-f = (x^3 + x^2 + x + 2)//(x^4 + 3*x^2 + 2)
+f = (x^3 + x^2 + x + 2)/(x^4 + 3*x^2 + 2)
 integrate(f, x)  # Returns (1//2)*log(2 + x^2) + atan(x)
 
 # Transcendental functions
@@ -51,9 +52,19 @@ integrate(exp(x), x)    # Returns exp(x)
 integrate(log(x), x)    # Returns -x + x*log(x)
 integrate(1/x, x)       # Returns log(x)
 
+# Complex root integration (arctangent cases)
+integrate(1/(x^2 + 1), x)  # Returns atan(x)
+
 # More complex examples
 f = 1/(x*log(x))
 integrate(f, x)  # Returns log(log(x))
+```
+
+You can also use SymbolicUtils.jl directly:
+```julia
+using SymbolicIntegration, SymbolicUtils
+@syms x
+integrate(x^2, x)  # Same functionality
 ```
 
 ## Algorithm Coverage

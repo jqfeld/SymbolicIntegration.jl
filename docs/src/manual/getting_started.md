@@ -17,13 +17,13 @@ pkg> add SymbolicIntegration
 
 ## Basic Usage
 
-After installation, load the package along with SymbolicUtils.jl for symbolic variable creation:
+After installation, load the package along with Symbolics.jl for symbolic variable creation:
 
 ```julia
-using SymbolicIntegration, SymbolicUtils
+using SymbolicIntegration, Symbolics
 
 # Create symbolic variables
-@syms x
+@variables x
 
 # Integrate a simple polynomial
 integrate(x^2, x)  # Returns (1//3)*(x^3)
@@ -33,7 +33,7 @@ integrate(x^2, x)  # Returns (1//3)*(x^3)
 
 SymbolicIntegration.jl builds on several key packages in the Julia ecosystem:
 
-- **[SymbolicUtils.jl](https://symbolicutils.juliasymbolics.org/)**: Provides the symbolic expression system and user interface
+- **[Symbolics.jl](https://docs.sciml.ai/Symbolics/stable/)**: Provides the symbolic expression system and user interface
 - **[AbstractAlgebra.jl](https://nemocas.github.io/AbstractAlgebra.jl/dev/)**: Generic computer algebra algorithms  
 - **[Nemo.jl](https://nemocas.github.io/Nemo.jl/dev/)**: Fast calculations with algebraic numbers
 

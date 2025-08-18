@@ -2,12 +2,12 @@
 
 ## Creating Symbolic Variables
 
-Before integrating, you need to create symbolic variables using SymbolicUtils.jl:
+Before integrating, you need to create symbolic variables using Symbolics.jl:
 
 ```julia
-using SymbolicIntegration, SymbolicUtils
+using SymbolicIntegration, Symbolics
 
-@syms x y z
+@variables x y z
 ```
 
 ## The `integrate` Function

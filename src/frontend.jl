@@ -1,4 +1,5 @@
 using SymbolicUtils
+using Symbolics
 using Logging
 
 export integrate
@@ -729,6 +730,26 @@ end
 
 
 @syms ∫(f, x)
+
+# Symbolics.jl wrapper methods - convert Num to SymbolicUtils and back
+function integrate(f::Symbolics.Num, x::Symbolics.Num; kwargs...)
+    # Extract SymbolicUtils expressions from Symbolics.Num wrappers
+    result_symbolic = integrate(f.val, x.val; kwargs...)
+    # Wrap result back in Symbolics.Num
+    return Symbolics.Num(result_symbolic)
+end
+
+function integrate(f::Symbolics.Num, x::SymbolicUtils.Symbolic; kwargs...)
+    # Mixed case: Symbolics expression, SymbolicUtils variable
+    result_symbolic = integrate(f.val, x; kwargs...)
+    return Symbolics.Num(result_symbolic)
+end
+
+function integrate(f::SymbolicUtils.Symbolic, x::Symbolics.Num; kwargs...)
+    # Mixed case: SymbolicUtils expression, Symbolics variable  
+    result_symbolic = integrate(f, x.val; kwargs...)
+    return Symbolics.Num(result_symbolic)
+end
 
 struct AlgebraicNumbersInvolved <: Exception end
 

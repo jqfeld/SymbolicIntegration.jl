@@ -1,6 +1,6 @@
 using Test
 using SymbolicIntegration
-using SymbolicUtils
+using Symbolics
 
 @testset "SymbolicIntegration.jl" begin
     @testset "Package Loading" begin
@@ -9,7 +9,7 @@ using SymbolicUtils
     end
     
     @testset "Core Integration Tests" begin
-        @syms x
+        @variables x
         
         # Test that basic integration works (check structure, not exact equality)
         result1 = integrate(x, x)

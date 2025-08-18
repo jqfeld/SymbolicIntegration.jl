@@ -1,7 +1,7 @@
 # SymbolicIntegration.jl
 This package provides Julia implementations of symbolic integration algorithms.
 
-The front-end (i.e., the user interface) requires [SymbolicUtils.jl](https://symbolicutils.juliasymbolics.org/).
+The front-end (i.e., the user interface) requires [Symbolics.jl](https://docs.sciml.ai/Symbolics/stable/).
 The actual integration algorithms are implemented in a generic way using [AbstractAlgebra.jl](https://nemocas.github.io/AbstractAlgebra.jl/dev/).
 Some algorithms require [Nemo.jl](https://nemocas.github.io/Nemo.jl/dev/) for calculations with algebraic numbers.
 
@@ -26,12 +26,12 @@ julia> using Pkg; Pkg.add("SymbolicIntegration")
 
 ## Usage
 ```julia
-julia> using SymbolicIntegration, SymbolicUtils
+julia> using SymbolicIntegration, Symbolics
 
-julia> @syms x
+julia> @variables x
 (x,)
 
-julia> f = (x^3 + x^2 + x + 2)//(x^4 + 3*x^2 + 2)
+julia> f = (x^3 + x^2 + x + 2)/(x^4 + 3*x^2 + 2)
 (2 + x + x^2 + x^3) / (2 + x^4 + 3(x^2))
 
 julia> integrate(f, x)
