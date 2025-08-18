@@ -1,0 +1,30 @@
+# Julia
+Manifest.toml
+docs/Manifest.toml
+
+# Documentation build artifacts
+docs/build/
+
+# Julia compiled files
+*.ji
+*.o
+*.so
+
+# Backup files
+*~
+*.bak
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.tmp
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

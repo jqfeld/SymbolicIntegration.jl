@@ -1,4 +1,4 @@
-using Documenter, SymbolicIntegration
+using Documenter, SymbolicIntegration, Symbolics
 
 makedocs(
     sitename="SymbolicIntegration.jl",

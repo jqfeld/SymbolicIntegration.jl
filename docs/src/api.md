@@ -10,49 +10,42 @@ CurrentModule = SymbolicIntegration
 integrate
 ```
 
-## Internal Types and Functions
+## Algorithm Overview
 
-```@docs
-Term
-IdTerm
-FunctionTerm
-Result
-```
+SymbolicIntegration.jl implements the complete symbolic integration algorithms from Manuel Bronstein's book "Symbolic Integration I: Transcendental Functions".
 
-## Algorithm Functions
+### Supported Function Classes
 
-### Rational Function Integration
+- **Polynomial functions**: ∫xⁿ dx
+- **Rational functions**: ∫P(x)/Q(x) dx using Rothstein-Trager method
+- **Exponential functions**: ∫exp(f(x)) dx using Risch algorithm
+- **Logarithmic functions**: ∫log(f(x)) dx using integration by parts
+- **Trigonometric functions**: Transformed to exponential form
 
-```@docs
-IntegrateRationalFunction
-HermiteReduce
-IntRationalLogPart
-```
+### Algorithm Components
 
-### Transcendental Function Integration
+The package includes implementations of:
+- Hermite reduction for rational functions
+- Rothstein-Trager method for logarithmic parts
+- Risch algorithm for transcendental functions
+- Differential field tower construction
+- Complex root finding for arctangent terms
 
-```@docs
-Integrate
-HermiteReduce
-ResidueReduce
-PolynomialReduce
-```
+## Internal Structure
 
-### Differential Field Operations
+The package is organized into several algorithm modules:
+- `rational_functions.jl`: Rational function integration algorithms
+- `transcendental_functions.jl`: Risch algorithm implementation  
+- `differential_fields.jl`: Differential field operations
+- `complex_fields.jl`: Complex number field handling
+- `frontend.jl`: User interface and expression conversion
 
-```@docs
-BasicDerivation
-ExtensionDerivation
-AlgebraicExtensionDerivation
-```
+## Error Handling
 
-## Utility Functions
-
-```@docs
-isrational
-rationalize
-constant_roots
-```
+The package defines custom exception types:
+- `NotImplementedError`: For unsupported function types
+- `AlgorithmFailedError`: When no elementary antiderivative exists
+- `AlgebraicNumbersInvolved`: When algebraic numbers complicate the result
 
 ## Index
 

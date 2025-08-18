@@ -731,9 +731,41 @@ function TowerOfDifferentialFields(terms::Vector{Term})  where
 end
 
 
-Symbolics.@syms ∫(f, x)
+@variables ∫(.., ..)
 
-# Main integration interface for Symbolics.jl
+"""
+    integrate(f, x; kwargs...)
+
+Compute the symbolic integral of expression `f` with respect to variable `x`.
+
+# Arguments
+- `f`: Symbolic expression to integrate (Symbolics.Num)
+- `x`: Integration variable (Symbolics.Num)
+
+# Keyword Arguments  
+- `useQQBar::Bool=false`: Use algebraic closure for root finding
+- `catchNotImplementedError::Bool=true`: Catch implementation errors gracefully
+- `catchAlgorithmFailedError::Bool=true`: Catch algorithm failures gracefully
+
+# Returns
+- Symbolic expression representing the antiderivative (Symbolics.Num)
+
+# Examples
+```julia
+using SymbolicIntegration, Symbolics
+@variables x
+
+# Basic polynomial integration
+integrate(x^2, x)  # (1//3)*(x^3)
+
+# Rational function integration
+integrate(1/(x^2 + 1), x)  # atan(x)
+
+# Transcendental functions  
+integrate(exp(x), x)  # exp(x)
+integrate(log(x), x)  # -x + x*log(x)
+```
+"""
 function integrate(f::Symbolics.Num, x::Symbolics.Num; kwargs...)
     # Extract SymbolicUtils expressions from Symbolics.Num wrappers
     result_symbolic = integrate(f.val, x.val; kwargs...)
