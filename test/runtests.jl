@@ -8,7 +8,7 @@ using SymbolicUtils
         @test isdefined(SymbolicIntegration, :integrate)
     end
     
-    @testset "Basic Integration Tests" begin
+    @testset "Core Integration Tests" begin
         @syms x
         
         # Test that basic integration works (check structure, not exact equality)
@@ -30,13 +30,11 @@ using SymbolicUtils
         # Test that integration doesn't crash on common inputs
         @test integrate(x^3 + 2*x + 1, x) isa Any
     end
+    
+    # Include comprehensive test suites
+    include("test_rational_integration.jl")
+    include("test_complex_fields.jl") 
+    include("test_bronstein_examples.jl")
+    include("test_stewart_examples.jl")
+    include("test_algorithm_internals.jl")
 end
-
-# Original test files are available for manual testing:
-# - test_integrate_rational.jl: Rational function integration examples
-# - test_complex_fields.jl: Complex field operations
-# - bronstein_examples.jl: Examples from Bronstein's book  
-# - test_stewart.jl: Stewart integration test problems
-#
-# These can be run individually but may have some edge case issues
-# due to complex root handling changes in the new AbstractAlgebra API
