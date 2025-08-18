@@ -289,7 +289,8 @@ function constant_roots(f::PolyRingElem{T}, D::Derivation; useQQBar::Bool=false)
     @assert iscompatible(f, D)
     p = map_coefficients(c->constantize(c, BaseDerivation(D)), constant_factors(f)) 
     if useQQBar
-        return roots(p) 
+        QQBar = algebraic_closure(Nemo.QQ)
+        return roots(QQBar, p) 
     else
         return roots(p)
     end
@@ -302,7 +303,8 @@ function constant_roots(f::PolyRingElem{T}, D::Derivation; useQQBar::Bool=false)
     pp = map_coefficients(c->real(c), p*map_coefficients(c->conj(c), p))
     g = gcd(pp, derivative(pp))
     if useQQBar
-        return roots(g) 
+        QQBar = algebraic_closure(Nemo.QQ)
+        return roots(QQBar, g) 
     else
         return roots(g)
     end

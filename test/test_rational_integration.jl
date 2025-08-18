@@ -13,9 +13,11 @@ using SymbolicUtils
     @testset "Ayres Calculus Problems" begin
         # Test case 1: (3*x-4*x^2+3*x^3)/(1+x^2)
         # Expected: -4*x+3/2*x^2+4*atan(x)
-        # BROKEN: Complex root conversion API issue (Nemo.QQ(::QQBarFieldElem))
+        # FIXED: Complex root handling now works!
         f1 = (3*x-4*x^2+3*x^3)//(1+x^2)
-        @test_broken integrate(f1, x) isa Any
+        result1 = integrate(f1, x)
+        @test !isnothing(result1)
+        @test string(result1) == "-4x + 4atan(x) + (3//2)*(x^2)"
         
         # Test case 2: (5+3*x)/(1-x-x^2+x^3)  
         # Expected: 4/(1-x)+atanh(x)
@@ -31,9 +33,11 @@ using SymbolicUtils
         
         # Test case 4: (2+x+x^2+x^3)/(2+3*x^2+x^4)
         # Expected: atan(x)+1/2*log(2+x^2)
-        # BROKEN: Complex root conversion API issue  
+        # FIXED: Complex root handling now works!
         f4 = (2+x+x^2+x^3)//(2+3*x^2+x^4)
-        @test_broken integrate(f4, x) isa Any
+        result4 = integrate(f4, x)
+        @test !isnothing(result4)
+        @test string(result4) == "atan(x) + (1//2)*log(2 + x^2)"
     end
     
     @testset "Complex Rational Functions" begin

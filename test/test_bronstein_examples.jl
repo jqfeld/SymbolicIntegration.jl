@@ -19,9 +19,10 @@ using Nemo
         @test string(result1) isa String
         
         # Example 2.8.1: Complex root handling
-        # BROKEN: Complex root conversion API issue
+        # FIXED: Complex root handling now works!
         f2 = 1//(x^2 + 1)
-        @test_broken integrate(f2, x) isa Any
+        result2 = integrate(f2, x)
+        @test string(result2) == "atan(x)"
         
         # Example showing logarithmic parts
         # This one actually works!
