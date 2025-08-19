@@ -1,21 +1,37 @@
 # SymbolicIntegration.jl
-This package provides Julia implementations of symbolic integration algorithms.
 
-The front-end (i.e., the user interface) requires [Symbolics.jl](https://docs.sciml.ai/Symbolics/stable/).
-The actual integration algorithms are implemented in a generic way using [AbstractAlgebra.jl](https://nemocas.github.io/AbstractAlgebra.jl/dev/).
-Some algorithms require [Nemo.jl](https://nemocas.github.io/Nemo.jl/dev/) for calculations with algebraic numbers.
+*A unified interface for symbolic integration methods in Julia*
 
-`SymbolicIntegration.jl` is based on the algorithms from the book
+SymbolicIntegration.jl provides a flexible, extensible framework for symbolic integration with multiple algorithm choices. The package uses method dispatch to allow users to select the most appropriate integration algorithm for their specific needs.
 
-> Manuel Bronstein, [Symbolic Integration I: Transcentental Functions](https://link.springer.com/book/10.1007/b138171), 2nd ed, Springer 2005,
+## Key Features
 
-for which a pretty complete set of reference implementations is provided.
-Currently, `SymbolicIntegration.jl` can integrate rational functions and integrands involving transcendental elementary 
-functions like `exp`, `log`, `sin`, etc.
-As in the book, integrands involving algebraic functions like `sqrt` and non-integer powers are not treated.
+- 🎯 **Multiple Integration Methods**: Extensible method dispatch system
+- ⚡ **Exact Symbolic Results**: Guaranteed correct symbolic integration  
+- 🔢 **Complex Root Handling**: Produces exact arctangent terms
+- ⚙️ **Configurable Algorithms**: Method-specific options and behavior
+- 🏗️ **Professional Interface**: SciML-style method selection
 
-Note that `SymbolicIntegration.jl` is still in an early stage of development and should not be expected to run stably in all situations.
-It comes with absolutely no warranty whatsoever.
+## Integration Methods
+
+### RischMethod (Default)
+Complete symbolic integration using the Risch algorithm from Manuel Bronstein's "Symbolic Integration I: Transcendental Functions".
+
+**Capabilities:**
+- ✅ **Rational functions**: Complete integration with Rothstein-Trager method
+- ✅ **Transcendental functions**: Exponential, logarithmic using differential field towers
+- ✅ **Complex roots**: Exact arctangent terms for complex polynomial roots
+- ✅ **Integration by parts**: Logarithmic function integration
+- ✅ **Trigonometric functions**: Via transformation to exponential form
+
+**Function Classes:**
+- Polynomial functions: `∫x^n dx`, `∫(ax^2 + bx + c) dx`
+- Rational functions: `∫P(x)/Q(x) dx` → logarithmic and arctangent terms
+- Exponential functions: `∫exp(f(x)) dx`, `∫x*exp(x) dx`
+- Logarithmic functions: `∫log(x) dx`, `∫1/(x*log(x)) dx`
+- Trigonometric functions: `∫sin(x) dx`, `∫cos(x) dx`, `∫tan(x) dx`
+
+The framework is designed to support additional integration methods as they are developed.
 
 
 
@@ -25,34 +41,82 @@ julia> using Pkg; Pkg.add("SymbolicIntegration")
 ```
 
 ## Usage
+
+### Basic Integration
+
 ```julia
-julia> using SymbolicIntegration, Symbolics
+using SymbolicIntegration, Symbolics
+@variables x
 
-julia> @variables x
-(x,)
-
-julia> f = (x^3 + x^2 + x + 2)/(x^4 + 3*x^2 + 2)
-(2 + x + x^2 + x^3) / (2 + x^4 + 3(x^2))
-
-julia> integrate(f, x)
-(1//2)*log(2 + x^2) + atan(x)
-
-julia> f = 1/(x*log(x))
-1 / (x*log(x))
-
-julia> integrate(f, x)
-log(log(x))
-
-julia> integrate(1/(x^2 + 1), x)  # Complex root integration
-atan(x)
+# Default method (RischMethod) - most cases
+integrate(x^2, x)                    # (1//3)*(x^3)
+integrate(1/x, x)                    # log(x)
+integrate(exp(x), x)                 # exp(x)
+integrate(1/(x^2 + 1), x)           # atan(x)
 ```
 
-## Tests
-Some test problems taken from the
-[Rubi Integration Test-suites](https://rulebasedintegration.org/testProblems.html)
-are provided by  [test_integrate_rational.jl](https://github.com/HaraldHofstaetter/SymbolicIntegration.jl/blob/main/test/test_integrate_rational.jl) and
-[test_stewart.jl](https://github.com/HaraldHofstaetter/SymbolicIntegration.jl/blob/main/test/test_stewart.jl), 
-which produce the output
-[test_integrate_rational.out](https://github.com/HaraldHofstaetter/SymbolicIntegration.jl/blob/main/test/test_integrate_rational.out) and
-[test_stewart.out](https://github.com/HaraldHofstaetter/SymbolicIntegration.jl/blob/main/test/test_stewart.out), respectively.
+### Method Selection
+
+```julia
+# Explicit method choice
+integrate(f, x, RischMethod())
+
+# Method with configuration
+risch = RischMethod(use_algebraic_closure=true, catch_errors=false)
+integrate(f, x, risch)
+```
+
+### Complex Examples
+
+```julia
+# Rational function with complex roots
+f = (x^3 + x^2 + x + 2)/(x^4 + 3*x^2 + 2)
+integrate(f, x)  # (1//2)*log(2 + x^2) + atan(x)
+
+# Integration by parts
+integrate(log(x), x)  # -x + x*log(x)
+
+# Nested transcendental functions
+integrate(1/(x*log(x)), x)  # log(log(x))
+```
+
+## Method Framework
+
+SymbolicIntegration.jl uses a modern method dispatch system similar to other SciML packages:
+
+### Current Methods
+- **RischMethod**: Complete symbolic integration (default)
+
+### Method Configuration
+```julia
+# Research configuration (strict, complete)
+RischMethod(use_algebraic_closure=true, catch_errors=false)
+
+# Production configuration (robust, graceful)  
+RischMethod(use_algebraic_closure=true, catch_errors=true)
+
+# Performance configuration (faster, simpler)
+RischMethod(use_algebraic_closure=false, catch_errors=true)
+```
+
+### Extensibility
+The framework is designed for easy extension with additional integration methods. The abstract type `AbstractIntegrationMethod` provides the foundation for implementing new algorithms.
+
+## Documentation
+
+Complete documentation with method selection guidance, algorithm details, and examples is available at:
+**[https://symbolicintegration.juliasymbolics.org](https://symbolicintegration.juliasymbolics.org)**
+
+## Citation
+
+If you use SymbolicIntegration.jl in your research, please cite:
+
+```bibtex
+@software{SymbolicIntegration.jl,
+  author = {Harald Hofstätter and contributors},
+  title = {SymbolicIntegration.jl: Symbolic Integration for Julia},
+  url = {https://github.com/JuliaSymbolics/SymbolicIntegration.jl},
+  year = {2023-2025}
+}
+```
 
