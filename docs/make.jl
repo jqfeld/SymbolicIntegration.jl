@@ -17,6 +17,12 @@ makedocs(
         "Manual" => [
             "manual/getting_started.md",
             "manual/basic_usage.md",
+        ],
+        "Integration Methods" => [
+            "methods/overview.md",
+            "methods/risch.md",
+        ],
+        "Algorithm Details" => [
             "manual/rational_functions.md",
             "manual/transcendental_functions.md",
         ],

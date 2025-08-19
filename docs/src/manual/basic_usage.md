@@ -12,7 +12,15 @@ using SymbolicIntegration, Symbolics
 
 ## The `integrate` Function
 
-The main function for symbolic integration is `integrate(expr, var)`:
+The main function for symbolic integration uses method dispatch to choose algorithms:
+
+```julia
+# Default method (RischMethod)
+integrate(expr, var)
+
+# Explicit method selection
+integrate(expr, var, method)
+```
 
 ```julia
 # Basic polynomial integration
@@ -56,6 +64,38 @@ integrate(sin(x), x)   # -cos(x)
 integrate(cos(x), x)   # sin(x)  
 integrate(tan(x), x)   # -log(cos(x))
 ```
+
+## Method Selection
+
+SymbolicIntegration.jl supports multiple integration methods through method dispatch:
+
+### Default Method (RischMethod)
+```julia
+# These are equivalent
+integrate(f, x)
+integrate(f, x, RischMethod())
+```
+
+### Method Configuration
+```julia
+# Configure method behavior
+risch_exact = RischMethod(use_algebraic_closure=true, catch_errors=false)
+integrate(1/(x^2 + 1), x, risch_exact)  # atan(x) with strict error handling
+
+risch_robust = RischMethod(use_algebraic_closure=true, catch_errors=true)  
+integrate(difficult_function, x, risch_robust)  # Graceful error handling
+```
+
+### Method Comparison
+```julia
+# For exact results with full complex root handling
+integrate(f, x, RischMethod(use_algebraic_closure=true))
+
+# For faster computation (may miss some arctangent terms)
+integrate(f, x, RischMethod(use_algebraic_closure=false))
+```
+
+See the [Integration Methods](../methods/overview.md) section for complete details on available methods and their capabilities.
 
 ## Error Handling
 
