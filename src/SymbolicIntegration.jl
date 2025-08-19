@@ -13,4 +13,10 @@ include("coupled_differential_systems.jl")
 include("algebraic_functions.jl")
 include("frontend.jl")
 
+# Add method dispatch system
+include("methods.jl")
+
+# Export method interface
+export AbstractIntegrationMethod, RischMethod
+
 end # module
