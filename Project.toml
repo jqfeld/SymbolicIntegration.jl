@@ -1,7 +1,7 @@
 name = "SymbolicIntegration"
 uuid = "315ce56f-eed0-411d-ab8a-2fbdf9327b51"
 authors = ["HaraldHofstaetter <hofi@harald-hofstaetter.at>", "Chris Rackauckas <accounts@chrisrackauckas.com>", "JuliaSymbolics contributors"]
-version = "1.0.0"
+version = "2.0.0"
 description = "Symbolic integration algorithms for Julia"
 repository = "https://github.com/JuliaSymbolics/SymbolicIntegration.jl"
 license = "MIT"
