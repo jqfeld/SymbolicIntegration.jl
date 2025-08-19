@@ -31,10 +31,12 @@ using Symbolics
         @test integrate(x^3 + 2*x + 1, x) isa Any
     end
     
-    # Include comprehensive test suites
-    include("test_rational_integration.jl")
-    include("test_complex_fields.jl") 
-    include("test_bronstein_examples.jl")
+    # Include Risch method test suites
+    include("methods/risch/test_rational_integration.jl")
+    include("methods/risch/test_complex_fields.jl") 
+    include("methods/risch/test_bronstein_examples.jl")
+    include("methods/risch/test_algorithm_internals.jl")
+    
+    # Include general test suites
     include("test_stewart_examples.jl")
-    include("test_algorithm_internals.jl")
 end
