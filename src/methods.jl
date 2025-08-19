@@ -27,12 +27,17 @@ end
 
 # Method dispatch integration
 function integrate(f::Symbolics.Num, x::Symbolics.Num, method::RischMethod; kwargs...)
-    # Call existing integrate function with method options
-    return integrate(f, x;
+    # Call renamed Risch function with method options
+    return integrate_risch(f, x;
         useQQBar=method.use_algebraic_closure,
         catchNotImplementedError=method.catch_errors,
         catchAlgorithmFailedError=method.catch_errors,
         kwargs...)
+end
+
+# Main integrate function - dispatches to RischMethod by default
+function integrate(f::Symbolics.Num, x::Symbolics.Num; kwargs...)
+    return integrate_risch(f, x; kwargs...)
 end
 
 # Method traits
