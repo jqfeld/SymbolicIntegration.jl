@@ -766,27 +766,27 @@ integrate(exp(x), x)  # exp(x)
 integrate(log(x), x)  # -x + x*log(x)
 ```
 """
-function integrate(f::Symbolics.Num, x::Symbolics.Num; kwargs...)
+function integrate_risch(f::Symbolics.Num, x::Symbolics.Num; kwargs...)
     # Extract SymbolicUtils expressions from Symbolics.Num wrappers
-    result_symbolic = integrate(f.val, x.val; kwargs...)
+    result_symbolic = integrate_risch(f.val, x.val; kwargs...)
     # Wrap result back in Symbolics.Num
     return Symbolics.Num(result_symbolic)
 end
 
 struct AlgebraicNumbersInvolved <: Exception end
 
-function integrate(f::SymbolicUtils.Add, x::SymbolicUtils.Symbolic; useQQBar::Bool=false,
+function integrate_risch(f::SymbolicUtils.Add, x::SymbolicUtils.Symbolic; useQQBar::Bool=false,
     catchNotImplementedError::Bool=true, catchAlgorithmFailedError::Bool=true)
     # For efficiency compute integral of sum as sum of integrals
     g = f.coeff*x
     for (h, c) in f.dict
-        g += c*integrate(h, x, useQQBar=useQQBar, catchNotImplementedError=catchNotImplementedError,
+        g += c*integrate_risch(h, x, useQQBar=useQQBar, catchNotImplementedError=catchNotImplementedError,
                          catchAlgorithmFailedError=catchAlgorithmFailedError)
     end
     g
 end
 
-function integrate(f::SymbolicUtils.Symbolic, x::SymbolicUtils.Symbolic; useQQBar::Bool=false,
+function integrate_risch(f::SymbolicUtils.Symbolic, x::SymbolicUtils.Symbolic; useQQBar::Bool=false,
     catchNotImplementedError::Bool=true, catchAlgorithmFailedError::Bool=true)
     try
         p, funs, vars, args = analyze_expr(f, x)
