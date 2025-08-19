@@ -35,35 +35,60 @@ julia> using Pkg; Pkg.add("SymbolicIntegration")
 ## Quick Start
 
 ```julia
-# Using Symbolics.jl (recommended)
 using SymbolicIntegration, Symbolics
 
 @variables x
 
-# Basic polynomial integration
+# Basic polynomial integration (uses default RischMethod)
 integrate(x^2, x)  # Returns (1//3)*(x^3)
 
-# Rational function integration  
+# Rational function integration with complex roots
 f = (x^3 + x^2 + x + 2)/(x^4 + 3*x^2 + 2)
 integrate(f, x)  # Returns (1//2)*log(2 + x^2) + atan(x)
 
 # Transcendental functions
 integrate(exp(x), x)    # Returns exp(x)
 integrate(log(x), x)    # Returns -x + x*log(x)
-integrate(1/x, x)       # Returns log(x)
 
 # Complex root integration (arctangent cases)
 integrate(1/(x^2 + 1), x)  # Returns atan(x)
 
-# More complex examples
-f = 1/(x*log(x))
-integrate(f, x)  # Returns log(log(x))
+# Method selection and configuration
+integrate(f, x, RischMethod())  # Explicit method choice
+integrate(f, x, RischMethod(use_algebraic_closure=true))  # With options
 ```
 
 
+## Integration Methods
+
+SymbolicIntegration.jl provides multiple integration algorithms through a flexible method dispatch system:
+
+### RischMethod (Default)
+The complete Risch algorithm for elementary function integration:
+- **Exact results**: Guaranteed correct symbolic integration
+- **Complex roots**: Produces exact arctangent terms  
+- **Complete coverage**: Rational and transcendental functions
+- **Configurable**: Options for performance vs completeness
+
+```julia
+# Default method
+integrate(f, x)  
+
+# Explicit method with options
+integrate(f, x, RischMethod(use_algebraic_closure=true))
+```
+
+### Future Methods
+The framework supports additional integration algorithms:
+- **HeuristicMethod**: Fast pattern-matching integration
+- **NumericalMethod**: Numerical integration fallbacks
+- **SymPyMethod**: SymPy backend compatibility
+
+[→ See complete methods documentation](methods/overview.md)
+
 ## Algorithm Coverage
 
-This package implements the complete suite of algorithms from Bronstein's book:
+The **RischMethod** implements the complete suite of algorithms from Bronstein's book:
 
 - **Rational Function Integration** (Chapter 2)
   - Hermite reduction

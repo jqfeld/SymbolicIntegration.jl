@@ -10,6 +10,21 @@ CurrentModule = SymbolicIntegration
 integrate
 ```
 
+## Integration Methods
+
+### Available Methods
+
+```@docs
+RischMethod
+```
+
+### Method Traits
+
+```@docs
+method_supports_rational
+method_supports_transcendental
+```
+
 ## Algorithm Overview
 
 SymbolicIntegration.jl implements the complete symbolic integration algorithms from Manuel Bronstein's book "Symbolic Integration I: Transcendental Functions".
