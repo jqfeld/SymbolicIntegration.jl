@@ -1,8 +1,6 @@
 using Symbolics
+using SymbolicUtils
 using Logging
-
-# Access SymbolicUtils through Symbolics
-const SymbolicUtils = Symbolics.SymbolicUtils
 
 export integrate
 

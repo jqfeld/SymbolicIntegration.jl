@@ -12,7 +12,7 @@ include("methods/risch/risch_diffeq.jl")
 include("methods/risch/parametric_problems.jl")
 include("methods/risch/coupled_differential_systems.jl")
 include("methods/risch/algebraic_functions.jl")
-include("frontend.jl")
+include("methods/risch/frontend.jl")
 
 # Add method dispatch system
 include("methods.jl")
